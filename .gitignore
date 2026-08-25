@@ -9,6 +9,7 @@ yarn-error.log*
 # Build output
 dist/
 build/
+*.tsbuildinfo
 
 # Environment variables
 .env
@@ -29,6 +30,9 @@ Thumbs.db
 # Python
 __pycache__/
 *.pyc
+.venv/
+*.egg-info/
+eeg-calibration/data/sessions/
 
 # Coverage
 coverage/
@@ -36,6 +40,7 @@ coverage/
 # Temporary
 tmp/
 temp/
+study-results/
 
 # Mac resource forks
 ._*

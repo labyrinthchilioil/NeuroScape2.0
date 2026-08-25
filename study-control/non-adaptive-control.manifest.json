@@ -1,0 +1,12 @@
+{
+  "control_audio_id": "non-adaptive-10min-v1",
+  "control_trajectory_id": "non-adaptive-trajectory-approved-v1",
+  "trajectory_file": "non-adaptive-trajectory.approved.jsonl",
+  "audio_file": "../frontend/public/audio/control/non-adaptive-10min.mp3",
+  "duration_ms": 600000,
+  "audio_mime_type": "audio/mpeg",
+  "audio_sha256": "B7AFEE44BD5827C6E865745A74DB5A13FA804BE2F42003F0C869A3498BB0FAF9",
+  "runtime_eeg": false,
+  "runtime_llm": false,
+  "shared_by_all_participants": true
+}

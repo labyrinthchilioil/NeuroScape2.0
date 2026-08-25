@@ -21,6 +21,10 @@ describe('SourceManager', () => {
     const state = snapshot(); manager.reconcile(state); await flush();
     expect(manager.sources.size).toBe(4); expect(manager.sources.get('globalAmbient:wind')?.spatializer).toBeNull();
     expect(manager.sources.get('localizedAmbient:water')?.spatializer).not.toBeNull(); expect(context.panners).toHaveLength(3);
+    expect(manager.sources.get('globalAmbient:wind')?.gainNode.gain.value).toBeCloseTo(0.08);
+    expect(manager.sources.get('localizedAmbient:water')?.gainNode.gain.value).toBeCloseTo(0.16);
+    expect(manager.sources.get('action:breath')?.gainNode.gain.value).toBe(0.5);
+    expect(manager.sources.get('event:bird')?.gainNode.gain.value).toBe(0.6);
     expect(context.sources).toHaveLength(4); manager.reconcile(state); await flush(); expect(context.sources).toHaveLength(4);
     expect((manager.sources.get('action:breath')?.spatializer as unknown as FakePanner).positionX.value).toBe(8);
     expect((manager.sources.get('event:bird')?.spatializer as unknown as FakePanner).positionX.value).toBe(-4);

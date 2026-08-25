@@ -10,10 +10,13 @@
     "test": "vitest run"
   },
   "dependencies": {
+    "@neuroscape/adaptive-planner": "0.1.0",
     "@neuroscape/contracts": "0.1.0",
     "@neuroscape/runtime-scene-controller": "0.1.0",
+    "jszip": "^3.10.1",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",
+    "recharts": "^3.10.1",
     "three": "^0.179.1",
     "zustand": "^5.0.7"
   },

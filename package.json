@@ -3,12 +3,24 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "workspaces": ["packages/*", "module-03-runtime-scene-controller", "frontend"],
+  "engines": {
+    "node": "^20.19.0 || ^22.13.0 || >=24"
+  },
+  "workspaces": [
+    "packages/*",
+    "module-03-runtime-scene-controller",
+    "study-recorder-server",
+    "frontend"
+  ],
   "scripts": {
-    "dev": "npm run build --workspace @neuroscape/contracts && npm run dev --workspace @neuroscape/frontend",
-    "build": "npm run build --workspace @neuroscape/contracts && npm run build --workspace @neuroscape/runtime-scene-controller && npm run build --workspace @neuroscape/frontend",
-    "typecheck": "npm run build --workspace @neuroscape/contracts && npm run build --workspace @neuroscape/runtime-scene-controller && npm run typecheck --workspaces --if-present",
-    "test": "npm run build --workspace @neuroscape/contracts && npm run build --workspace @neuroscape/runtime-scene-controller && npm run test --workspaces --if-present",
+    "dev": "npm run build --workspace @neuroscape/contracts && npm run build --workspace @neuroscape/adaptive-planner && npm run build --workspace @neuroscape/runtime-scene-controller && node scripts/dev.mjs",
+    "dev:frontend": "npm run dev --workspace @neuroscape/frontend",
+    "calibration:server": "eeg-calibration/.venv/bin/python -m uvicorn app.main:app --app-dir eeg-calibration/backend --host 127.0.0.1 --port 8000",
+    "calibration:setup": "node scripts/setup-calibration.mjs",
+    "study:server": "npm run dev --workspace @neuroscape/study-recorder-server",
+    "build": "npm run build --workspace @neuroscape/contracts && npm run build --workspace @neuroscape/adaptive-planner && npm run build --workspace @neuroscape/runtime-scene-controller && npm run build --workspace @neuroscape/frontend",
+    "typecheck": "npm run build --workspace @neuroscape/contracts && npm run build --workspace @neuroscape/adaptive-planner && npm run build --workspace @neuroscape/runtime-scene-controller && npm run typecheck --workspaces --if-present",
+    "test": "npm run build --workspace @neuroscape/contracts && npm run build --workspace @neuroscape/adaptive-planner && npm run build --workspace @neuroscape/runtime-scene-controller && npm run test --workspaces --if-present",
     "lint": "eslint .",
     "format": "prettier --write .",
     "format:check": "prettier --check ."

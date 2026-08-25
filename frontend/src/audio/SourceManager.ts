@@ -5,6 +5,7 @@ import type { HRTFRenderer, SpatialDiagnostics } from './HRTFRenderer.js';
 import type { PlaybackScheduler, PlaybackTarget } from './PlaybackScheduler.js';
 
 export type SourceCategory = 'globalAmbient' | 'localizedAmbient' | 'action' | 'event';
+const AMBIENT_OUTPUT_GAIN = 0.2;
 export interface RuntimeSound { id: string; assetId: string; gain: number; active: boolean; worldPosition?: Vector3; lifecycle?: 'waiting' | 'active' | 'finished' }
 export interface ManagedSource extends PlaybackTarget {
   key: string; runtimeId: string; assetId: string; category: SourceCategory; gainNode: GainNode; spatializer: PannerNode | null;
@@ -63,7 +64,11 @@ export class SourceManager {
     let source = this.sources.get(key);
     if (source && source.assetId !== sound.assetId) { this.#release(key, source); source = undefined; }
     source ??= this.#create(key, category, sound);
-    this.#gains.apply(source.gainNode.gain, sound.gain, this.#context.currentTime);
+    const outputGain =
+      category === 'globalAmbient' || category === 'localizedAmbient'
+        ? sound.gain * AMBIENT_OUTPUT_GAIN
+        : sound.gain;
+    this.#gains.apply(source.gainNode.gain, outputGain, this.#context.currentTime);
     if (source.spatializer && sound.worldPosition) {
       source.diagnostics = this.#hrtf.update(key, source.spatializer, sound.worldPosition, listener.worldPosition, listener.orientation as Quaternion, this.#context.currentTime);
     }

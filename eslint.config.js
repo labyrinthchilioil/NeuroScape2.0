@@ -3,9 +3,26 @@ import globals from 'globals';
 import tseslint from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['**/dist/**', '**/coverage/**', 'SystemDesign/**', 'UIreference/**'] },
+  {
+    ignores: [
+      '**/dist/**',
+      '**/coverage/**',
+      'SystemDesign/**',
+      'UIreference/**',
+    ],
+  },
   js.configs.recommended,
   ...tseslint.configs.recommended,
+  {
+    files: ['**/*.mjs'],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+        URL: 'readonly',
+        fetch: 'readonly',
+      },
+    },
+  },
   {
     files: ['**/*.{ts,tsx}'],
     languageOptions: {
